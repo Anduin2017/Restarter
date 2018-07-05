@@ -35,5 +35,25 @@ namespace Restarter.Services
             }
             return result;
         }
+
+        public async Task<string> Shutdown(Server target)
+        {
+            var startInfo = new ProcessStartInfo
+            {
+                CreateNoWindow = true,
+                FileName = _configuration["PowershellLocation"],
+                Arguments = $"{_configuration["ShutdownScript"]} -ComputerName '{target.Name}'",
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+            };
+            string result = string.Empty;
+            using (var process = new Process { StartInfo = startInfo })
+            {
+                process.Start();
+                result = await process.StandardOutput.ReadToEndAsync();
+                Console.WriteLine(result);
+            }
+            return result;
+        }
     }
 }

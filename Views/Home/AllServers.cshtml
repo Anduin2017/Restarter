@@ -5,10 +5,10 @@
 <div class="container-fluid">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a asp-controller="Home" asp-action="Index">Dashboard</a>
+            <a asp-controller="Home" asp-action="Index">仪表板</a>
         </li>
         <li class="breadcrumb-item">
-            <a asp-controller="Home" asp-action="AllServers">All Servers</a>
+            <a asp-controller="Home" asp-action="AllServers">所有设备</a>
         </li>
         <li class="breadcrumb-item active">@ViewData["Title"]</li>
     </ol>
@@ -46,16 +46,22 @@
                                     {
                                         <div class="btn-group">
                                             <a class="btn btn-secondary waves-effect waves-light" disable="disable">
-                                                无法远程重启
+                                                无法远程管理
                                             </a>
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="btn-group">
-                                            <a href="javascript:restart('@server.Id')" class="btn btn-danger waves-effect waves-light">
+                                            <a href="javascript:restart('@server.Id', true)" class="btn btn-danger waves-effect waves-light">
                                                 <i class="fa fa-refresh"></i>
                                                 立即重启
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:restart('@server.Id', false)" class="btn btn-warning waves-effect waves-light">
+                                                <i class="fa fa-refresh"></i>
+                                                立即关机
                                             </a>
                                         </div>
                                     }
@@ -73,7 +79,7 @@
 </div>
 @section js{
     <script>
-        var restart = function (id) {
+        var restart = function (id, restart) {
             swal({
                 title: '重启该服务',
                 text: "请确认该操作对目前的业务的影响。这将强制重启目标服务器。",
@@ -89,29 +95,49 @@
                     swal({
                         title: '正在重启...',
                         text: '重启结果将在几秒后提示……',
-                        timer: 5000,
+                        timer: 10000,
                         type: 'success',
                         onOpen: () => {
                             swal.showLoading();
                         }
                     }).then(() => {
-                        $.get('/home/restart/' + id, function (data) {
-                            if (data.code == 0) {
-                                swal({
-                                    title: '服务器重启成功！',
-                                    showConfirmButton: false,
-                                    timer: 1300,
-                                    type: 'success'
-                                })
-                            } else {
-                                swal({
-                                    title: '服务器重启失败！',
-                                    showConfirmButton: false,
-                                    timer: 1300,
-                                    type: 'danger'
-                                })
-                            }
-                        });
+                        if (restart) {
+                            $.get('/home/restart/' + id, function (data) {
+                                if (data.code == 0) {
+                                    swal({
+                                        title: '服务器重启成功！',
+                                        showConfirmButton: false,
+                                        timer: 1300,
+                                        type: 'success'
+                                    })
+                                } else {
+                                    swal({
+                                        title: '服务器重启失败！',
+                                        showConfirmButton: false,
+                                        timer: 1300,
+                                        type: 'error'
+                                    })
+                                }
+                            });
+                        } else {
+                            $.get('/home/shutdown/' + id, function (data) {
+                                if (data.code == 0) {
+                                    swal({
+                                        title: '服务器关机成功！',
+                                        showConfirmButton: false,
+                                        timer: 1300,
+                                        type: 'success'
+                                    })
+                                } else {
+                                    swal({
+                                        title: '远程命令执行失败！',
+                                        showConfirmButton: false,
+                                        timer: 1300,
+                                        type: 'error'
+                                    })
+                                }
+                            });
+                        }
                     });
                 } else {
                     swal({

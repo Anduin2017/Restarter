@@ -42,6 +42,20 @@ namespace Restarter.Controllers
             }
         }
 
+        public async Task<IActionResult> Shutdown(int id)
+        {
+            var server = await _dbContext.Servers.SingleOrDefaultAsync(t => t.Id == id);
+            var result = await _restartTrigger.Shutdown(server);
+            if (result.Contains("Successfully"))
+            {
+                return Json(new { code = 0, message = "Success!" });
+            }
+            else
+            {
+                return Json(new { code = -1, message = "Failed!", Reason = result });
+            }
+        }
+
         public async Task<IActionResult> AllServers()
         {
             var servers = await _dbContext.Servers.ToListAsync();
