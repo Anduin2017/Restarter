@@ -41,8 +41,10 @@
                                 <td>@server.Architect</td>
                                 <td>
                                     <div class="btn-group">
-                                        <i class="fa fa-refresh fa-spin"></i>
-                                        <a asp-controller="Home" asp-action="Restart" asp-route-id="@server.Id" class="btn btn-secondary waves-effect waves-light">立即重启</a>
+                                        <a href="javascript:restart('@server.Id')" class="btn btn-danger waves-effect waves-light">
+                                            <i class="fa fa-refresh fa-spin"></i>
+                                            立即重启
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
@@ -56,3 +58,41 @@
         </div>
     </div>
 </div>
+@section js{
+    <script>
+        var restart = function (id) {
+            swal({
+                title: '课程安全',
+                text: "请确认你是否使用了与用户名相同的密码。\r\n这有极高的风险可能会导致你的课程被恶意删除。",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '已修改密码',
+                cancelButtonText: '立即修改',
+                cancelButtonColor: '#d33',
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger'
+            }).then((result) => {
+                if (!result.value) {
+                    swal({
+                        title: '正在重定向...',
+                        text: '请在密码修改完成后再登录选课平台。',
+                        timer: 2000,
+                        type: 'success',
+                        onOpen: () => {
+                            swal.showLoading();
+                        }
+                    }).then(() => {
+                        location.href = "https://zhjw.neu.edu.cn/ACTIONCHANGEPASSWORD.APPPROCESS";
+                    });
+                } else {
+                    swal({
+                        title: '可以开始选课了',
+                        showConfirmButton: false,
+                        timer: 1300,
+                        type: 'success'
+                    })
+                }
+            });
+        }
+    </script>
+}
