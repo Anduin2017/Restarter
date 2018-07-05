@@ -41,7 +41,8 @@
                                 <td>@server.Architect</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a asp-controller="Index" asp-action="Restart" asp-route-id="@server.Id" class="btn btn-secondary waves-effect waves-light">Restart</a>
+                                        <i class="fa fa-refresh fa-spin"></i>
+                                        <a asp-controller="Home" asp-action="Restart" asp-route-id="@server.Id" class="btn btn-secondary waves-effect waves-light">立即重启</a>
                                     </div>
                                 </td>
                             </tr>
