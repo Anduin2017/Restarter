@@ -26,7 +26,8 @@
                             <th>域名</th>
                             <th>所属负责人</th>
                             <th>主要用途</th>
-                            <th>生产商</th>
+                            <th>架构</th>
+                            <th>生产厂商</th>
                             <th style="width: 460px">Operation</th>
                         </tr>
                     </thead>
@@ -39,10 +40,11 @@
                                 <td>@server.Owner</td>
                                 <td>@server.UsageA</td>
                                 <td>@server.Architect</td>
+                                <td>@server.VMArchitect</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="javascript:restart('@server.Id')" class="btn btn-danger waves-effect waves-light">
-                                            <i class="fa fa-refresh fa-spin"></i>
+                                            <i class="fa fa-refresh"></i>
                                             立即重启
                                         </a>
                                     </div>
@@ -76,13 +78,13 @@
                     swal({
                         title: '正在重启...',
                         text: '重启结果将在几秒后提示……',
-                        timer: 2000,
+                        timer: 5000,
                         type: 'success',
                         onOpen: () => {
                             swal.showLoading();
                         }
                     }).then(() => {
-                        $.get('/home/restart/' + id, function (data) { 
+                        $.get('/home/restart/' + id, function (data) {
                             if (data.code == 0) {
                                 swal({
                                     title: '服务器重启成功！',
