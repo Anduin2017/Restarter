@@ -34,11 +34,11 @@ namespace Restarter.Controllers
             var result = await _restartTrigger.Restart(server);
             if (result.Contains("Successfully"))
             {
-                return Json(new { message = "Success!" });
+                return Json(new { code = 0, message = "Success!" });
             }
             else
             {
-                return Json(new { message = "Failed!", Reason = result });
+                return Json(new { code = -1, message = "Failed!", Reason = result });
             }
         }
 
