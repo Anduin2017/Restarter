@@ -80,64 +80,50 @@
 @section js{
     <script>
         var restart = function (id, restart) {
+            var text = '关闭';
+            var apiaddress = '/home/shutdown/';
+            if (restart) {
+                text = '重启';
+                apiaddress = '/home/restart/';
+            }
             swal({
-                title: '重启该服务',
-                text: "请确认该操作对目前的业务的影响。这将强制重启目标服务器。",
+                title: text,
+                text: "请确认该操作对目前的业务的影响。这将强制" + text + "目标服务器。",
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonText: '放弃重启',
-                cancelButtonText: '强制重启',
+                confirmButtonText: '放弃' + text,
+                cancelButtonText: '强制' + text,
                 cancelButtonColor: '#d33',
                 confirmButtonClass: 'btn btn-success',
                 cancelButtonClass: 'btn btn-danger'
             }).then((result) => {
                 if (!result.value) {
                     swal({
-                        title: '正在重启...',
-                        text: '重启结果将在几秒后提示……',
+                        title: '正在' + text + '...',
+                        text: text + '结果将在几秒后提示……',
                         timer: 10000,
                         type: 'success',
                         onOpen: () => {
                             swal.showLoading();
                         }
                     }).then(() => {
-                        if (restart) {
-                            $.get('/home/restart/' + id, function (data) {
-                                if (data.code == 0) {
-                                    swal({
-                                        title: '服务器重启成功！',
-                                        showConfirmButton: false,
-                                        timer: 1300,
-                                        type: 'success'
-                                    })
-                                } else {
-                                    swal({
-                                        title: '服务器重启失败！',
-                                        showConfirmButton: false,
-                                        timer: 1300,
-                                        type: 'error'
-                                    })
-                                }
-                            });
-                        } else {
-                            $.get('/home/shutdown/' + id, function (data) {
-                                if (data.code == 0) {
-                                    swal({
-                                        title: '服务器关机成功！',
-                                        showConfirmButton: false,
-                                        timer: 1300,
-                                        type: 'success'
-                                    })
-                                } else {
-                                    swal({
-                                        title: '远程命令执行失败！',
-                                        showConfirmButton: false,
-                                        timer: 1300,
-                                        type: 'error'
-                                    })
-                                }
-                            });
-                        }
+                        $.get(apiaddress + id, function (data) {
+                            if (data.code == 0) {
+                                swal({
+                                    title: '服务器' + text + '成功！',
+                                    showConfirmButton: false,
+                                    timer: 1300,
+                                    type: 'success'
+                                })
+                            } else {
+                                swal({
+                                    title: '服务器' + text + '失败！',
+                                    showConfirmButton: false,
+                                    timer: 1300,
+                                    type: 'error'
+                                })
+                            }
+                        });
                     });
                 } else {
                     swal({
