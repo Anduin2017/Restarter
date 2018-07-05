@@ -38,7 +38,6 @@ namespace Restarter.Controllers
             return Json(new { message = result });
         }
 
-
         public async Task<IActionResult> AllServers()
         {
             var servers = await _dbContext.Servers.ToListAsync();

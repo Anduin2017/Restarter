@@ -1,8 +1,41 @@
 @model Restarter.Models.HomeViewModels.AllServersViewModel
-
-@foreach (var server in Model.Servers)
-{
-    <h2>@server.Name</h2>
+@{
+    ViewData["Title"] = "All Servers";
 }
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="Apps" asp-action="Index">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+    </ol>
+    <div class="row">
+        @foreach (var server in Model.Servers)
+        {
+            <div class="col-xl-3 col-sm-4 col-xs-12 mb-3">
+                <div class="card text-white bg-danger o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-list"></i>
+                        </div>
+                        <div class="mr-5">@Html.DisplayFor(t => server.Name)</div>
+                        <div class="mr-5 small">@Html.DisplayFor(t => server.UsageA)</div>
+                    </div>
+                    <a class="card-footer text-white clearfix small z-1" asp-controller="Apps" asp-action="ViewApp">
+                        <span class="float-left">Edit Settings</span>
+                        <span class="float-right">
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        }
+        <div class="col-12 mt-3 mb-3">
+            <div class="text-center">
+                <a asp-controller="Apps" asp-action="CreateApp" class="btn btn-lg btn-success">Create App</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <a asp-controller="Home" asp-action="Add">Add new</a>
