@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restarter.Services;
 
 namespace Restarter
 {
@@ -23,6 +24,7 @@ namespace Restarter
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<RestartTrigger>();
             services.AddMvc();
         }
 
