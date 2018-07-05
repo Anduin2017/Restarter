@@ -38,7 +38,7 @@ namespace Restarter.Controllers
             }
             else
             {
-                return Json(new { message = "Failed!" });
+                return Json(new { message = "Failed!", Reason = result });
             }
         }
 
