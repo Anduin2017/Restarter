@@ -1,2 +1,8 @@
 @model Restarter.Models.HomeViewModels.AllServersViewModel
 
+@foreach (var server in Model.Servers)
+{
+    <h2>@server.Name</h2>
+}
+
+<a asp-controller="Home" asp-action="Add">Add new</a>
