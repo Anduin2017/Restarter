@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restarter.Data;
 using Restarter.Services;
 
 namespace Restarter
@@ -24,6 +26,8 @@ namespace Restarter
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<RestarterDbContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<RestartTrigger>();
             services.AddMvc();
         }
