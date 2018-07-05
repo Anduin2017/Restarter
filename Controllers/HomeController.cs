@@ -28,14 +28,18 @@ namespace Restarter.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Test()
+        public async Task<IActionResult> Restart(int id)
         {
-            var csServer = new Server
+            var server = await _dbContext.Servers.SingleOrDefaultAsync(t => t.Id == id);
+            var result = await _restartTrigger.Restart(server);
+            if (result.Contains("Successfully"))
             {
-                Name = "cs01"
-            };
-            var result = await _restartTrigger.Restart(csServer);
-            return Json(new { message = result });
+                return Json(new { message = "Success!" });
+            }
+            else
+            {
+                return Json(new { message = "Failed!" });
+            }
         }
 
         public async Task<IActionResult> AllServers()
