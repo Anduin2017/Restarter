@@ -4,7 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Restarter.Data;
 using Restarter.Models;
+using Restarter.Models.HomeViewModels;
 using Restarter.Services;
 
 namespace Restarter.Controllers
@@ -12,9 +15,13 @@ namespace Restarter.Controllers
     public class HomeController : Controller
     {
         private readonly RestartTrigger _restartTrigger;
-        public HomeController(RestartTrigger restartTrigger)
+        private readonly RestarterDbContext _dbContext;
+        public HomeController(
+            RestartTrigger restartTrigger,
+            RestarterDbContext dbContext)
         {
             _restartTrigger = restartTrigger;
+            _dbContext = dbContext;
         }
         public IActionResult Index()
         {
@@ -30,6 +37,18 @@ namespace Restarter.Controllers
             var result = await _restartTrigger.Restart(csServer);
             return Json(new { message = result });
         }
+
+
+        public async Task<IActionResult> AllServers()
+        {
+            var servers = await _dbContext.Servers.ToListAsync();
+            var model = new AllServersViewModel
+            {
+                Servers = servers
+            };
+            return View(model);
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
