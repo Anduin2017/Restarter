@@ -22,7 +22,7 @@ namespace Restarter.Services
             {
                 CreateNoWindow = true,
                 FileName = _configuration["PowershellLocation"],
-                Arguments = $"{_configuration["RestartScript"]} -target '{target.Name}'",
+                Arguments = $"{_configuration["RestartScript"]} -ComputerName '{target.Name}'",
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
             };
