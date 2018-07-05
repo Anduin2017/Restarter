@@ -42,12 +42,23 @@
                                 <td>@server.Architect</td>
                                 <td>@server.VMArchitect</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <a href="javascript:restart('@server.Id')" class="btn btn-danger waves-effect waves-light">
-                                            <i class="fa fa-refresh"></i>
-                                            立即重启
-                                        </a>
-                                    </div>
+                                    @if (server.InDomainName.Contains("未加入") || server.InDomainName.Contains("无法加入"))
+                                    {
+                                        <div class="btn-group">
+                                            <a class="btn btn-secondary waves-effect waves-light" disable="disable">
+                                                无法远程重启
+                                            </a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="btn-group">
+                                            <a href="javascript:restart('@server.Id')" class="btn btn-danger waves-effect waves-light">
+                                                <i class="fa fa-refresh"></i>
+                                                立即重启
+                                            </a>
+                                        </div>
+                                    }
                                 </td>
                             </tr>
                         }
