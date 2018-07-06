@@ -40,6 +40,7 @@ namespace Restarter
             }
             else
             {
+                app.UseHttpsRedirection();
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
