@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Restarter.Data;
 using Restarter.Services;
 
@@ -110,3 +111,4 @@ namespace Restarter
             }
         }
     }
+}
