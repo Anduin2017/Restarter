@@ -8,6 +8,8 @@ namespace Restarter.Data
         public RestarterDbContext(DbContextOptions<RestarterDbContext> options) : base(options)
         {
         }
+
         public DbSet<Server> Servers { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
     }
 }
