@@ -34,10 +34,22 @@ namespace Restarter.Controllers
             var result = await _restartTrigger.Restart(server);
             if (result.Contains("Successfully"))
             {
+                _dbContext.AuditLogs.Add(new AuditLog
+                {
+                    Action = $"Successfully Restarted {server.Name}.",
+                    Operator = User.Identity.Name,
+                });
+                await _dbContext.SaveChangesAsync();
                 return Json(new { code = 0, message = "Success!" });
             }
             else
             {
+                _dbContext.AuditLogs.Add(new AuditLog
+                {
+                    Action = $"Unsuccessfully Restarted {server.Name}.",
+                    Operator = User.Identity.Name,
+                });
+                await _dbContext.SaveChangesAsync();
                 return Json(new { code = -1, message = "Failed!", Reason = result });
             }
         }
@@ -48,10 +60,22 @@ namespace Restarter.Controllers
             var result = await _restartTrigger.Shutdown(server);
             if (result.Contains("Successfully"))
             {
+                _dbContext.AuditLogs.Add(new AuditLog
+                {
+                    Action = $"Successfully Shutdown {server.Name}.",
+                    Operator = User.Identity.Name,
+                });
+                await _dbContext.SaveChangesAsync();
                 return Json(new { code = 0, message = "Success!" });
             }
             else
             {
+                _dbContext.AuditLogs.Add(new AuditLog
+                {
+                    Action = $"Unsuccessfully Shutdown {server.Name}.",
+                    Operator = User.Identity.Name,
+                });
+                await _dbContext.SaveChangesAsync();
                 return Json(new { code = -1, message = "Failed!", Reason = result });
             }
         }
@@ -87,9 +111,15 @@ namespace Restarter.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Audit()
+        public async Task<IActionResult> Audit()
         {
-            throw new NotImplementedException();
+            var logs = await _dbContext
+                .AuditLogs
+                .OrderByDescending(t => t.EventTime)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return View(logs);
         }
     }
 }
