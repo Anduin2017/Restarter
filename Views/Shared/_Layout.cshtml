@@ -34,20 +34,26 @@
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link" asp-controller="Home" asp-action="IPS">
-                        <i class="fa fa-fw fa-server"></i>
+                        <i class="fa fa-fw fa-tv"></i>
                         <span class="nav-link-text">IP管理</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link" asp-controller="Home" asp-action="Reports">
-                        <i class="fa fa-fw fa-server"></i>
+                        <i class="fa fa-fw fa-bars"></i>
                         <span class="nav-link-text">报表管理</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link" asp-controller="Home" asp-action="Wiki">
-                        <i class="fa fa-fw fa-server"></i>
+                        <i class="fa fa-fw fa-book"></i>
                         <span class="nav-link-text">文档管理</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link" asp-controller="Home" asp-action="Audit">
+                        <i class="fa fa-fw fa-list"></i>
+                        <span class="nav-link-text">审计日志</span>
                     </a>
                 </li>
             </ul>
@@ -114,6 +120,11 @@
                         }
                         <a class="dropdown-item small" href="#">View all alerts</a>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-fw fa-sign-out"></i>@User.Identity.Name
+                    </a>
                 </li>
             </ul>
         </div>
