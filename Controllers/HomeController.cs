@@ -31,6 +31,10 @@ namespace Restarter.Controllers
         public async Task<IActionResult> Restart(int id)
         {
             var server = await _dbContext.Servers.SingleOrDefaultAsync(t => t.Id == id);
+            if (server == null)
+            {
+                return NotFound();
+            }
             var result = await _restartTrigger.Restart(server);
             if (result.Contains("Successfully"))
             {
@@ -38,6 +42,7 @@ namespace Restarter.Controllers
                 {
                     Action = $"Successfully Restarted {server.Name}.",
                     Operator = User.Identity.Name,
+                    IPAddress = HttpContext.Connection.RemoteIpAddress.ToString()
                 });
                 await _dbContext.SaveChangesAsync();
                 return Json(new { code = 0, message = "Success!" });
@@ -48,6 +53,7 @@ namespace Restarter.Controllers
                 {
                     Action = $"Unsuccessfully Restarted {server.Name}.",
                     Operator = User.Identity.Name,
+                    IPAddress = HttpContext.Connection.RemoteIpAddress.ToString()
                 });
                 await _dbContext.SaveChangesAsync();
                 return Json(new { code = -1, message = "Failed!", Reason = result });
@@ -57,6 +63,10 @@ namespace Restarter.Controllers
         public async Task<IActionResult> Shutdown(int id)
         {
             var server = await _dbContext.Servers.SingleOrDefaultAsync(t => t.Id == id);
+            if (server == null)
+            {
+                return NotFound();
+            }
             var result = await _restartTrigger.Shutdown(server);
             if (result.Contains("Successfully"))
             {
@@ -64,6 +74,7 @@ namespace Restarter.Controllers
                 {
                     Action = $"Successfully Shutdown {server.Name}.",
                     Operator = User.Identity.Name,
+                    IPAddress = HttpContext.Connection.RemoteIpAddress.ToString()
                 });
                 await _dbContext.SaveChangesAsync();
                 return Json(new { code = 0, message = "Success!" });
@@ -74,6 +85,7 @@ namespace Restarter.Controllers
                 {
                     Action = $"Unsuccessfully Shutdown {server.Name}.",
                     Operator = User.Identity.Name,
+                    IPAddress = HttpContext.Connection.RemoteIpAddress.ToString()
                 });
                 await _dbContext.SaveChangesAsync();
                 return Json(new { code = -1, message = "Failed!", Reason = result });

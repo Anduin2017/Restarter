@@ -14,5 +14,6 @@ namespace Restarter.Models
         public string Operator { get; set; }
         public DateTime EventTime { get; set; } = DateTime.Now;
         public string Action { get; set; }
+        public string IPAddress { get; set; }
     }
 }
