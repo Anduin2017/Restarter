@@ -40,7 +40,7 @@ namespace Restarter.Controllers
             {
                 _dbContext.AuditLogs.Add(new AuditLog
                 {
-                    Action = $"Successfully Restarted {server.Name}.",
+                    Action = $"成功重启了{server.Name}.",
                     Operator = User.Identity.Name,
                     IPAddress = HttpContext.Connection.RemoteIpAddress.ToString()
                 });
@@ -51,7 +51,7 @@ namespace Restarter.Controllers
             {
                 _dbContext.AuditLogs.Add(new AuditLog
                 {
-                    Action = $"Unsuccessfully Restarted {server.Name}.",
+                    Action = $"失败重启了{server.Name}.",
                     Operator = User.Identity.Name,
                     IPAddress = HttpContext.Connection.RemoteIpAddress.ToString()
                 });
@@ -72,7 +72,7 @@ namespace Restarter.Controllers
             {
                 _dbContext.AuditLogs.Add(new AuditLog
                 {
-                    Action = $"Successfully Shutdown {server.Name}.",
+                    Action = $"成功关闭了{server.Name}.",
                     Operator = User.Identity.Name,
                     IPAddress = HttpContext.Connection.RemoteIpAddress.ToString()
                 });
@@ -83,7 +83,7 @@ namespace Restarter.Controllers
             {
                 _dbContext.AuditLogs.Add(new AuditLog
                 {
-                    Action = $"Unsuccessfully Shutdown {server.Name}.",
+                    Action = $"失败的关闭了{server.Name}.",
                     Operator = User.Identity.Name,
                     IPAddress = HttpContext.Connection.RemoteIpAddress.ToString()
                 });

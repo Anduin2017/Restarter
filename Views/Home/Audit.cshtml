@@ -4,36 +4,62 @@
     ViewData["Title"] = "审计日志";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="Index">仪表板</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="AllServers">审计日志</a>
+        </li>
+        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+    </ol>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-inbox ico"></i>
+            所有历史操作
+        </div>
+        <div class="card-body">
+            <div class="col-xs-12">
+                <table class="table table-striped datatable">
+                    <thead>
+                        <tr>
+                            <th>
+                                操作账户
+                            </th>
+                            <th>
+                                时间
+                            </th>
+                            <th>
+                                行为
+                            </th>
+                            <th>
+                                IP地址
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Operator)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EventTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Action)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IPAddress)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Operator)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Action)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Operator)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Action)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
