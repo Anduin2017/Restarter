@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Restarter.Models;
+using System;
 
 namespace Restarter.Data
 {

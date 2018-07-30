@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Restarter.Models;
 
 namespace Restarter
 {
@@ -15,5 +18,8 @@ namespace Restarter
 
         public int ExpectedStatusCode { get; set; }
         public string ExpectedContent { get; set; }
+
+        [InverseProperty(nameof(Server.Monitor))]
+        public IEnumerable<Server> Servers { get; set; }
     }
 }

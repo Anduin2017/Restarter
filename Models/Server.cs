@@ -1,8 +1,16 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using Restarter.Models;
+
 namespace Restarter.Models
 {
     public class Server
     {
         public int Id { get; set; }
+
+        public int? MonitorId { get; set; }
+        [ForeignKey(nameof(MonitorId))]
+        public HealthMonitor Monitor { get; set; }
+
         public string Name { get; set; }
         public string Architect { get; set; }
         public string VCPU { get; set; }
