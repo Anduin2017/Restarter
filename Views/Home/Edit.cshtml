@@ -1,0 +1,36 @@
+@model Restarter.Models.HomeViewModels.EditViewModel
+@{
+    ViewData["Title"] = "编辑服务器信息";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="Index">仪表板</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="AllServers">所有服务器</a>
+        </li>
+        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+    </ol>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-inbox ico"></i>
+            @ViewData["Title"]
+        </div>
+        <div class="card-body">
+            <div class="col-xs-12">
+                <form asp-controller="Home" asp-action="Edit" method="post" class="col-md-12">
+                    <input type="hidden" asp-for="ServerId"></input>
+                    <div class="form-group">
+                        <label asp-for="NewHMId"></label>
+                        <select class="form-control valid" asp-for="NewHMId" asp-items="@ViewBag.HMID"></select>
+                        <span asp-validation-for="NewHMId" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" data-disable-with="正在创建..." class="btn btn-success">保存</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

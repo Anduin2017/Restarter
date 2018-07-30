@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Restarter.Data;
 using Restarter.Models;
@@ -124,12 +125,42 @@ namespace Restarter.Controllers
                 .Include(t => t.Monitor)
                 .Take(1000)
                 .ToListAsync();
-                
+
             var model = new AllServersViewModel
             {
                 Servers = servers
             };
             return View(model);
+        }
+
+        public async Task<IActionResult> Edit(int id) // Server Id
+        {
+            var server = await _dbContext.Servers.AsNoTracking().SingleOrDefaultAsync(t => t.Id == id);
+            var hms = await _dbContext.MonitorTemplates.AsNoTracking().ToListAsync();
+            if (server == null)
+            {
+                return NotFound();
+            }
+            ViewData["HMID"] = new SelectList(hms, nameof(HealthMonitor.Id), nameof(HealthMonitor.MonitorName));
+            var model = new EditViewModel
+            {
+                server = server,
+                ServerId = server.Id
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditViewModel model)
+        {
+            var server = await _dbContext.Servers.SingleOrDefaultAsync(t => t.Id == model.ServerId);
+            if (server == null)
+            {
+                return NotFound();
+            }
+            server.MonitorId = model.NewHMId;
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(AllServers));
         }
 
         public IActionResult About()
