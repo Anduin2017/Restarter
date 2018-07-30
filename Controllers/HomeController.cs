@@ -29,7 +29,7 @@ namespace Restarter.Controllers
         }
 
         //Development usage
-        
+
         // public async Task<IActionResult> Seed()
         // {
         //     _dbContext.Servers.Add(new Server
@@ -118,7 +118,13 @@ namespace Restarter.Controllers
 
         public async Task<IActionResult> AllServers()
         {
-            var servers = await _dbContext.Servers.ToListAsync();
+            var servers = await _dbContext
+                .Servers
+                .AsNoTracking()
+                .Include(t => t.Monitor)
+                .Take(1000)
+                .ToListAsync();
+                
             var model = new AllServersViewModel
             {
                 Servers = servers
