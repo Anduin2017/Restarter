@@ -9,6 +9,7 @@ namespace Restarter.Data
         {
         }
 
+        public DbSet<HealthMonitor> MonitorTemplates { get; set; }
         public DbSet<Server> Servers { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
     }
