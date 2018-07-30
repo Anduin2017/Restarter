@@ -8,6 +8,7 @@ namespace Restarter.Data
     {
         public RestarterDbContext(DbContextOptions<RestarterDbContext> options) : base(options)
         {
+            
         }
 
         public DbSet<HealthMonitor> MonitorTemplates { get; set; }

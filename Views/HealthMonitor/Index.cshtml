@@ -1,0 +1,46 @@
+@model Restarter.Models.HealthMonitorViewModels.IndexViewModel
+@{
+    ViewData["Title"] = "所有健康监视器";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="Index">仪表板</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="AllServers">所有健康监视器</a>
+        </li>
+        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+    </ol>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-inbox ico"></i>
+            所有健康监视器
+        </div>
+        <div class="card-body">
+            <div class="col-xs-12">
+                <table class="table table-striped datatable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>监视器名称</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var hm in HealthMonitors)
+                        {
+                            <tr>
+                                <td>@hm.Id</td>
+                                <td>@hm.MonitorName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="col-md-12 margin-top-30">
+                    <a asp-controller="Index" asp-action="Add" class="btn btn-success">添加健康监视器</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
