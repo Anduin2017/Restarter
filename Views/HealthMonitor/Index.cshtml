@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var hm in HealthMonitors)
+                        @foreach (var hm in Model.HealthMonitors)
                         {
                             <tr>
                                 <td>@hm.Id</td>
@@ -38,7 +38,7 @@
                     </tbody>
                 </table>
                 <div class="col-md-12 margin-top-30">
-                    <a asp-controller="Index" asp-action="Add" class="btn btn-success">添加健康监视器</a>
+                    <a asp-controller="HealthMonitor" asp-action="Add" class="btn btn-success">添加健康监视器</a>
                 </div>
             </div>
         </div>

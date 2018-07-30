@@ -1,0 +1,60 @@
+@model Restarter.Models.HealthMonitorViewModels.AddViewModel
+@{
+    ViewData["Title"] = "新增健康监视器";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="Index">仪表板</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="AllServers">所有健康监视器</a>
+        </li>
+        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+    </ol>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-inbox ico"></i>
+            @ViewData["Title"]
+        </div>
+        <div class="card-body">
+            <div class="col-xs-12">
+                <form asp-controller="Account" asp-action="Security" method="post" class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="MonitorName"></label>
+                        <input asp-for="MonitorName" type="text" class="form-control">
+                        <span asp-validation-for="MonitorName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RequestPath"></label>
+                        <input asp-for="RequestPath" type="text" class="form-control">
+                        <span asp-validation-for="RequestPath" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IsPostMethod"></label>
+                        <input asp-for="IsPostMethod" type="checkbox" class="form-control">
+                        <span asp-validation-for="IsPostMethod" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Form"></label>
+                        <input asp-for="Form" type="text" class="form-control">
+                        <span asp-validation-for="Form" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ExpectedStatusCode"></label>
+                        <input asp-for="ExpectedStatusCode" type="number" class="form-control">
+                        <span asp-validation-for="ExpectedStatusCode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ExpectedContent"></label>
+                        <input asp-for="ExpectedContent" type="text" class="form-control">
+                        <span asp-validation-for="ExpectedContent" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" data-disable-with="正在创建..." class="btn btn-success">创建</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

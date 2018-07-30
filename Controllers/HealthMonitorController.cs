@@ -25,5 +25,10 @@ namespace Restarter.Controllers
             };
             return View(model);
         }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
     }
 }
