@@ -28,6 +28,30 @@ namespace Restarter.Controllers
             return View();
         }
 
+        //Development usage
+        
+        // public async Task<IActionResult> Seed()
+        // {
+        //     _dbContext.Servers.Add(new Server
+        //     {
+        //         Name = "Example Machine",
+        //         Architect = "HyperV",
+        //         VCPU = "4",
+        //         Memory = "1024MB",
+        //         DiskSize = "200GB",
+        //         InnerIP = "172.16.1.1",
+        //         OutterIP = "202.118.17.65",
+        //         Owner = "Anduin",
+        //         OS = "Windows Server 2016",
+        //         UsageA = "This is an Example",
+        //         UsageB = "Ohhhh WTF!@??",
+        //         VMArchitect = "HyperV",
+        //         InDomainName = "Example.MyDomain.com"
+        //     });
+        //     await _dbContext.SaveChangesAsync();
+        //     return RedirectToAction(nameof(Index));
+        // }
+
         public async Task<IActionResult> Restart(int id)
         {
             var server = await _dbContext.Servers.SingleOrDefaultAsync(t => t.Id == id);

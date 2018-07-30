@@ -20,6 +20,7 @@ namespace Restarter.Controllers
         {
             var monitors = await _dbContext
                 .MonitorTemplates
+                .Include(t => t.Servers)
                 .AsNoTracking()
                 .Take(1000)
                 .ToListAsync();

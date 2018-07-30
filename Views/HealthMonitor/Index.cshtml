@@ -25,6 +25,7 @@
                         <tr>
                             <th>ID</th>
                             <th>监视器名称</th>
+                            <th>引用次数</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +34,7 @@
                             <tr>
                                 <td>@hm.Id</td>
                                 <td>@hm.MonitorName</td>
+                                <td>@hm.Servers.Count()</td>
                             </tr>
                         }
                     </tbody>
