@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Restarter.Models;
 
@@ -8,15 +9,17 @@ namespace Restarter
     public class HealthMonitor
     {
         public int Id { get; set; }
+        [Required]
         public string MonitorName { get; set; }
-        // Format: "/home/test"
+        [Required]
         public string RequestPath { get; set; }
 
         public bool IsPostMethod { get; set; }
 
         public string Form { get; set; }
-
+        [Required]
         public int ExpectedStatusCode { get; set; }
+        [Required]
         public string ExpectedContent { get; set; }
 
         [InverseProperty(nameof(Server.Monitor))]

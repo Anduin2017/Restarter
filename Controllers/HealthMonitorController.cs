@@ -18,7 +18,12 @@ namespace Restarter.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var monitors = await _dbContext.MonitorTemplates.Take(1000).ToListAsync();
+            var monitors = await _dbContext
+                .MonitorTemplates
+                .AsNoTracking()
+                .Take(1000)
+                .ToListAsync();
+
             var model = new IndexViewModel()
             {
                 HealthMonitors = monitors
@@ -29,6 +34,23 @@ namespace Restarter.Controllers
         public IActionResult Add()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddViewModel model)
+        {
+            var hm = new HealthMonitor
+            {
+                MonitorName = model.MonitorName,
+                RequestPath = model.RequestPath,
+                IsPostMethod = model.IsPostMethod,
+                Form = model.Form,
+                ExpectedStatusCode = model.ExpectedStatusCode,
+                ExpectedContent = model.ExpectedContent
+            };
+            _dbContext.MonitorTemplates.Add(hm);
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
