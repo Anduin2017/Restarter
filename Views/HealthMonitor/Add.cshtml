@@ -37,6 +37,16 @@
                         <span asp-validation-for="IsPostMethod" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <input asp-for="IsHttpsMethod" type="checkbox">
+                        <label asp-for="IsHttpsMethod"></label>
+                        <span asp-validation-for="IsHttpsMethod" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Port"></label>
+                        <input asp-for="Port" type="number" class="form-control">
+                        <span asp-validation-for="Port" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="Form"></label>
                         <input asp-for="Form" type="text" class="form-control">
                         <span asp-validation-for="Form" class="text-danger"></span>

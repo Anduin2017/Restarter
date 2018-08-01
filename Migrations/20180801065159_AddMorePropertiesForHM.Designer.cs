@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restarter.Data;
 
 namespace Restarter.Migrations
 {
     [DbContext(typeof(RestarterDbContext))]
-    partial class RestarterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180801065159_AddMorePropertiesForHM")]
+    partial class AddMorePropertiesForHM
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

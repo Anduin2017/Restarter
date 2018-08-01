@@ -15,8 +15,10 @@ namespace Restarter
         public string RequestPath { get; set; }
 
         public bool IsPostMethod { get; set; }
+        public bool IsHttpsMethod { get; set; }
 
         public string Form { get; set; }
+        public int Port { get; set; }
         [Required]
         public int ExpectedStatusCode { get; set; }
         [Required]
